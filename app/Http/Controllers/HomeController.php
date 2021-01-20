@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -33,9 +36,9 @@ class HomeController extends Controller
     {
         return view('reward');
     }
-
     public function chat()
     {
-        return view('chat');
+        $users = User::where('id', '!=', Auth::id())->get();
+        return view('chat', ['users' => $users]);
     }
 }
